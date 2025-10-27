@@ -15,19 +15,26 @@
 
 import login
 import os
+import spacing
 
 # def encrypt(password):
 #TODO: implement password encryption
 #for now, password is as is
 
 def registration():
+    spacing.add_space(' ', 50, 0)
+    spacing.add_space('#', 50, 1)
+
     print("New Player Registration")
 
     file_path = "players.txt"
     if os.path.exists(file_path):
-        choice = input("players already exist. Do you want to log in instead? (yes/no?)").strip()
-        if choice == "yes":
-            return login.login()
+        print(file_path + " already exists.")
+    else:
+            open(file_path, "w")
+    #     choice = input("players already exist. Do you want to log in instead? (yes/no?)").strip()
+    #     if choice == "yes":
+    #         return login.login()
 
     while True:
         username = input("enter a username:").strip()
@@ -63,5 +70,5 @@ def registration():
     print(f"registration complete! welcome, {username}. Your player ID is {player_id} ")
     return player_id
 
-if __name__ == "__main__":
-    registration()
+# if __name__ == "__main__":
+#     registration()

@@ -19,8 +19,19 @@ for i in range(1, 2):
 # Prompt for Returning or New Players
 
 print("        [N] New Player      [L] Login          ")
+
 spacing.add_space(' ', 50, 0)
-player_select = input("     Select your option:")
+
+while True:
+    player_select = input("     Select your option:")
+    if player_select.lower() == 'n':
+        player_id = registration.registration()
+        break
+    elif player_select.lower() == 'l':
+        player_id = login.login()
+        break
+    else:
+        print("Invalid option selected.")
 
 # Open Game
 import game
