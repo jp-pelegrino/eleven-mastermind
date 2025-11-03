@@ -15,6 +15,6 @@ import random
 # from secret import secret_code
 def secret_code():
     colors = ["🔴", "🟢", "🔵", "🟡", "⚪", "🟠"]
-    code = [random.choice(colors), random.choice(colors), random.choice(colors), random.choice(colors), random.choice(colors), random.choice(colors)]
+    code = [random.choice(colors), random.choice(colors), random.choice(colors), random.choice(colors)]
 
     return code
