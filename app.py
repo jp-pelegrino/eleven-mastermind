@@ -35,5 +35,7 @@ while True:
 # Open Game
 import game
 
+game.start_game(player_id)
+
 #Testing collaborators commit
 # Testing Pull Request
