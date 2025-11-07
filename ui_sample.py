@@ -10,9 +10,9 @@ to_guess = 4 # parameter: how many colors to guess in the game
 
 secret_code_grid = [f"❔" for i in range(to_guess)]
 
-# simplified list generation using the parameter given
-guess_grid = [f"🔘" for i in range((max_attempts*to_guess))]
-result_grid = [f"🔳" for i in range((max_attempts*to_guess))]
+# adapt a new grid generation to account to dynamic parameters
+guess_grid = [["🔘" for i in range(to_guess)] for n in range (max_attempts)]
+result_grid = [["🔳" for i in range(to_guess)] for n in range (max_attempts)]
 pointer_grid = [f"⬛" for i in range(max_attempts)]
 
 def render (delay):
@@ -29,10 +29,8 @@ def render (delay):
       #GUESS GRID#
       for e in range(to_guess):
             row = ["║"]
-            row_start = (e*max_attempts)
-            row_end = row_start + max_attempts
-            for i in range(row_start, row_end):
-                  row.append(f" {guess_grid[i]} ") #emoji with spaces in-between
+            for i in range(max_attempts):
+                  row.append(f" {guess_grid[i][e]} ") #emoji with spaces in-between
                   row.append(f"║") #closing bracket
             row.append(f"  {secret_code_grid[e]}  ║") #append secret code
             print("".join(row))
@@ -46,15 +44,20 @@ def render (delay):
       #RESULT GRID#
       for e in range(to_guess):
             row = ["║"]
-            row_start = (e*max_attempts)
-            row_end = row_start + max_attempts
-            for i in range(row_start, row_end):
-                  row.append(f" {result_grid[i]} ") #emoji with spaces in-between
+            for i in range(max_attempts):
+                  row.append(f" {result_grid[i][e]} ") #emoji with spaces in-between
                   row.append(f"║") #closing bracket
+
             if e == 0:
                   row.append("GUESS:║")
             elif e == 1:
-                  row.append(f"  {attempts+1:02d}  ║")
+                  row.append(f"{attempts+1:02d}    ║")
+            elif e == 2:
+                  row.append(f"--of--║")
+            elif e == 3:
+                  row.append(f"    {max_attempts:02d}║")
+            else:
+                  row.append(f"      ║")
 
             print("".join(row))
             time.sleep(delay)
@@ -123,16 +126,8 @@ while attempts < max_attempts:
 
             guess.append(g) # append to this attempt guess input list
 
-            #Join c and attempt digit to map where on the list to replace
-            #Convert integers to strings
-            c_str = str(c)
-            attempts_str = str(attempts)
-
-            g_map = c_str + attempts_str # string addition causes the digit to concatenate
-                  # 00,max_attempts,20,30, 01,11,21,31, 02,12,22,32 ..., 09,19,29,39
-
-            #convert `g_map` to string and use it to pin-point where to insert the guess to the guess_grid
-            guess_grid[int(g_map)] = g 
+            # simplified and improved mapping to account to dynamic parameters
+            guess_grid[attempts][c] = g 
 
             render(0)
       
