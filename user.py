@@ -16,10 +16,6 @@
 import os
 import spacing
 
-# def encrypt(password):
-#TODO: implement password encryption
-#for now, password is as is
-
 # To use this function, just call on the function name and pass on the variable 
 # containing the plain text of the user's password
 def encrypt_text(plain_text):
@@ -116,9 +112,19 @@ def reg(new_user): # new_user is defined for integrating login module
                             break # loop back to username input
         if not taken_username:
             break
+    
+    # Password validation loop
+    while True:
 
-    password = input("enter a password: ").strip()
-
+        password = input("Enter an alphanumeric password: ").strip()
+        
+        # Check if password is alphanumeric using built-in string methon isalnum(). 
+        # If password is not alphanumeric, it will cause issues with deciphering the cipher text.
+        if password.isalnum():
+            break
+        else:
+            print("You entered an invalid character. Please use only alphanumeric characters.")
+            continue
 
     #generate player id
     player_id = 1
