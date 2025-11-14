@@ -18,29 +18,21 @@ import spacing
 
 # To use this function, just call on the function name and pass on the variable 
 # containing the plain text of the user's password
-def encrypt_text(plain_text, shift):
+def encrypt_text(plain_text):
     # Ensure that only strings will be processed
-    plain_text = str(plain_text)
+    plain_text = str(plain_text) 
 
-    # UPDATE: Utilized dynamic/computed dictonary for the caesar_cipher
-    # To make it easier to create a shift list or re-define shift value instead of hardcoded definition
-
-    # Ensure that only integer will be processed for the shift variable
-    shift = int(shift) 
-    
-    # Define the allowed characters in a password as well as it's position in the cipher using tuple
-    characters_array = ("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","1","2","3","4","5","6","7","8","9","0","!","@","#","$","%","^","&","*","(",")","-","_","+","=","{","}","[","]","|","\\",":",";","\"","'","<",">",",",".","?","/"," ","\t")
-
-    #Initialize `caesar_cipher` as dictionary list
-    caesar_cipher = dict()
-
-    c_array_size = len(characters_array) #define the array size of the tuple = 92
-    for c in range(c_array_size):
-        # (c+shift) = compute for the encryption offset (caesar function) of a character within the tuple
-        # use modulo `%` to perform a loopback to handle when c+shift is > 92
-        # [(70+10) % 94] = 80 => {'*':']'}
-        # [(90+10) % 94] = 6 => {'.':'F'}
-        caesar_cipher.update({characters_array[c]:characters_array[(c+shift) % c_array_size]})
+    # Shift by 10
+    caesar_cipher = {"A": "K", "B": "L", "C": "M", "D": "N", "E": "O", "F": "P",
+        "G": "Q", "H": "R", "I": "S", "J": "T", "K": "U", "L": "V", "M": "W",
+        "N": "X", "O": "Y", "P": "Z", "Q": "a", "R": "b", "S": "c", "T": "d",
+        "U": "e", "V": "f", "W": "g", "X": "h", "Y": "i", "Z": "j", "a": "k",
+        "b": "l", "c": "m", "d": "n", "e": "o", "f": "p", "g": "q", "h": "r",
+        "i": "s", "j": "t", "k": "u", "l": "v", "m": "w", "n": "x", "o": "y",
+        "p": "z", "q": "1", "r": "2", "s": "3", "t": "4", "u": "5", "v": "6",
+        "w": "7", "x": "8", "y": "9", "z": "0", "1": "A", "2": "B", "3": "C",
+        "4": "D", "5": "E", "6": "F", "7": "G", "8": "H", "9": "I", "0": "J",
+    }
 
     # Empty string to serve as container for the concatenated letters per iteration
     coded_text = ""
@@ -54,26 +46,22 @@ def encrypt_text(plain_text, shift):
 
 # To use this function, just call on the function name and pass on the variable 
 # containing the cipher text (encrypted text) of the user's password
-def decrypt_text(cipher_text, shift):
+def decrypt_text(cipher_text):
     # Ensure that only strings will be processed
     cipher_text = str(cipher_text) 
 
-    # Ensure that only integer will be processed for the shift variable
-    shift = int(shift)
-
-    #define the allowed characters in a password as well as it's position in the cipher using tuple
-    characters_array = ("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","1","2","3","4","5","6","7","8","9","0","!","@","#","$","%","^","&","*","(",")","-","_","+","=","{","}","[","]","|","\\",":",";","\"","'","<",">",",",".","?","/"," ","\t")
-
-    #Initialize `revered_caesar_cipher` as dictionary list
-    reversed_caesar_cipher = dict()
-
-    c_array_size = len(characters_array) #define the array size of the tuple = 92
-    for c in range(c_array_size):
-        # (c-shift) = compute for the decryption offset (caesar function) of a character within the tuple
-        # use modulo `%` to perform a loopback to handle c-shift is < 0, or is a negative value
-        # [(18-10) % 94] = 8 => {'R':'H'}
-        # [(8-10) % 94] = 92 => {'H':'/'}
-        reversed_caesar_cipher.update({characters_array[c]:characters_array[(c-shift) % c_array_size]})
+    # Shift by 10
+    reversed_caesar_cipher = {"K": "A", "L": "B", "M": "C", "N": "D", "O": "E",
+        "P": "F", "Q": "G", "R": "H", "S": "I", "T": "J", "U": "K", "V": "L",
+        "W": "M", "X": "N", "Y": "O", "Z": "P", "a": "Q", "b": "R", "c": "S",
+        "d": "T", "e": "U", "f": "V", "g": "W", "h": "X", "i": "Y", "j": "Z",
+        "k": "a", "l": "b", "m": "c", "n": "d", "o": "e", "p": "f", "q": "g",
+        "r": "h", "s": "i", "t": "j", "u": "k", "v": "l", "w": "m", "x": "n",
+        "y": "o", "z": "p", "1": "q", "2": "r", "3": "s", "4": "t", "5": "u",
+        "6": "v", "7": "w", "8": "x", "9": "y", "0": "z", "A": "1", "B": "2",
+        "C": "3", "D": "4", "E": "5", "F": "6", "G": "7", "H": "8", "I": "9",
+        "J": "0",
+    }
 
     # Empty string to serve as container for the concatenated letters per iteration
     decoded_text = ""
@@ -87,10 +75,6 @@ def decrypt_text(cipher_text, shift):
 
 
 def reg(new_user): # new_user is defined for integrating login module
-
-    shift = 10 # variable: define the number of shifts for the caesar cipher
-    # NOTE: must be the same value as defined in login
-    # if line 156 or 157 was commented out the value above is over-written
 
     spacing.add_space(' ', 50, 0)
     spacing.add_space('#', 50, 1)
@@ -106,7 +90,7 @@ def reg(new_user): # new_user is defined for integrating login module
 
     if new_user == "":
         # default operation if user prompts registration from the main menu.
-        username = input("Enter a UserName (Case Sensitive): ").strip()
+        username = input("Enter a UserName (Case Sensitive):").strip()
     else: # Registration QoL: if user prompts during registration if the input username does not exists.
         username = new_user # to skip username input since it is already provided on the login function call
     
@@ -119,28 +103,28 @@ def reg(new_user): # new_user is defined for integrating login module
                         continue
                     _ , stored_user, _ = line.strip().split(",")
                     if stored_user.lower() == username.lower():
-                        choice = input("Player already exist. Do you want to log in instead? (yes/no?) ").strip()
+                        choice = input("players already exist. Do you want to log in instead? (yes/no?)").strip()
                         if choice == "yes":
                             return login(username) # proceed to login module
                         else:
                             print("please try a different username.")
-                            return reg("") # loop back to username input
+                            taken_username = True
+                            break # loop back to username input
         if not taken_username:
             break
     
-    # UPDATE: Commented out validation loop since the array now considered special/non-alphanumeric characters
-    # # Password validation loop
-    # while True:
+    # Password validation loop
+    while True:
 
-    password = input("Enter a password: ").strip()
+        password = input("Enter an alphanumeric password: ").strip()
         
-    #     # Check if password is alphanumeric using built-in string methon isalnum(). 
-    #     # If password is not alphanumeric, it will cause issues with deciphering the cipher text.
-    #     if password.isalnum():
-    #         break
-    #     else:
-    #         print("You entered an invalid character. Please use only alphanumeric characters.")
-    #         continue
+        # Check if password is alphanumeric using built-in string methon isalnum(). 
+        # If password is not alphanumeric, it will cause issues with deciphering the cipher text.
+        if password.isalnum():
+            break
+        else:
+            print("You entered an invalid character. Please use only alphanumeric characters.")
+            continue
 
     #generate player id
     player_id = 1
@@ -152,31 +136,13 @@ def reg(new_user): # new_user is defined for integrating login module
                 player_id = last_id + 1
 
     #encrypt password
-    # shift = len(username) # comment-out if shift is dependent/dynamic to the length of the username
-    # shift = len(password) # comment-out if shift is dependent/dynamic to the length of the password
-    password = encrypt_text(password, shift)
+    password = encrypt_text(password)
 
     #save player data
     with open(file_path, "a") as file:
         file.write(f"{player_id},{username},{password}\n")
 
-    # confirm decryption
-    decrypted_password = decrypt_text(password, shift)
-
-    print(f"""registration complete! welcome, {username}#{player_id} \n
-              please remeber your password: "{decrypted_password}" """) # password confirmaiton 
-    # password review only during registration phase
-    
-    to_end = False
-    
-    while not to_end:
-        end_reg = input("Continue? (Y/N): ")
-
-        if end_reg.lower() == "y":
-            to_end = bool(True)
-        else:
-            to_end = bool(False)  
-
+    print(f"registration complete! welcome, {username}#{player_id} ")
     return player_id
 
 
@@ -190,10 +156,6 @@ def reg(new_user): # new_user is defined for integrating login module
 def login(old_user):
     spacing.add_space(' ', 50, 0)
     spacing.add_space('#', 50, 1)
-
-    shift = 10 # variable: define the number of shifts for the caesar cipher
-    # NOTE: must be the same value as defined in login
-    # if line 220 or 221 was commented out the value above is over-written
 
     print("Player Login")
 
@@ -215,13 +177,10 @@ def login(old_user):
                 continue
             player_id, stored_username, stored_password = line.strip().split(",") # mapping the data
             if username == stored_username: # case sensitive check
-                decrypted_password = decrypt_text(stored_password, shift)
+                decrypted_password = decrypt_text(stored_password)
                 password = input("Enter your Password: ").strip()
-                # shift = len(username) # comment-out if shift is dependent/dynamic to the length of the username
-                # shift = len(password) # comment-out if shift is dependent/dynamic to the length of the password
-                
                 if decrypted_password == password:
-                    print(f"login successful! welcome back, {username} - Player #{player_id}.")
+                    print(f"login successful! welcome back, {username}#{player_id}.")
                     return int(player_id)
                 else:
                     print("Incorrect password. Access denied.")
