@@ -239,4 +239,4 @@ def start_game(player_id,username,password):
                         # loop back
 
     # Casting userscore to int to make sure it records properly with the function in scores.py
-    score.update_user_score(username, userscore, password)
+    return(username,userscore,password)

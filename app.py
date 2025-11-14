@@ -24,7 +24,9 @@ import game
 result = list(game.start_game(player[0],player[1],player[2]))
 
 # return (player_id,username,password,userscore)
-score.update_user_score(result[1],result[2],result[3])
+score.update_user_score(result[0],result[1],result[2])
+
+score.leaderboard()
 
 #Testing collaborators commit
 # Testing Pull Request
